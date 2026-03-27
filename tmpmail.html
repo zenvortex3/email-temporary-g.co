@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TempMail - Layanan Email Sementara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header">
+        <h1>TempMail Pro</h1>
+        <p>Layanan email sementara gratis untuk menghindari spam.</p>
+    </div>
+
+    <div class="container">
+        <!-- Bagian Akun Email -->
+        <div class="card" style="text-align: center;">
+            <div class="email-display-wrapper">
+                <input type="text" id="email-address" class="email-input" readonly value="Menginisialisasi email...">
+                <button class="copy-btn-inside" onclick="copyEmail()">Salin</button>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-outline" style="color: var(--danger); border-color: var(--danger);" onclick="showConfirmModal()">
+                    🗑️ Hapus Permanen & Ganti
+                </button>
+            </div>
+
+            <div id="system-status" class="status-badge" style="display: none;">
+                <div class="status-dot"></div>
+                <span id="status-text">Email aktif dan siap digunakan</span>
+            </div>
+        </div>
+
+        <!-- Bagian Kotak Masuk -->
+        <div class="card">
+            <div class="inbox-header">
+                <div class="inbox-title">Kotak Masuk</div>
+                <div class="refresh-status">
+                    <span id="refresh-indicator" style="display: none;" class="loader"></span>
+                    <span id="countdown-text">Otomatis refresh dalam 5d</span>
+                    <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.85rem;" onclick="fetchMessages(true)">
+                        Refresh
+                    </button>
+                </div>
+            </div>
+
+            <div class="message-list" id="inbox-list">
+                <div class="empty-state">
+                    <div class="empty-icon">📥</div>
+                    <p>Memeriksa pesan baru...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Pembaca Email -->
+    <div class="modal" id="email-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-meta">
+                    <h2 id="modal-subject">Subjek</h2>
+                    <p id="modal-sender">pengirim@example.com</p>
+                </div>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <iframe id="email-content" sandbox="allow-same-origin allow-popups"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal" id="confirm-modal">
+        <div class="modal-content small">
+            <h2 style="color: var(--danger); margin-bottom: 12px;">⚠️ Hapus Permanen?</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 24px; line-height: 1.5;">
+                Tindakan ini akan <b>menghapus akun dan seluruh pesan</b> Anda dari server secara permanen. Anda yakin?
+            </p>
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button class="btn btn-outline" onclick="closeConfirmModal()">Batal</button>
+                <button class="btn btn-danger" onclick="executeDeleteAccount()">Ya, Hapus!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">✅ Alamat email disalin!</div>
+
+    <!-- Script JS -->
+    <script src="script.js"></script>
+</body>
+</html>

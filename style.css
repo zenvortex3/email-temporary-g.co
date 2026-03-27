@@ -1,0 +1,104 @@
+/* === CSS Variables & Reset === */
+:root {
+    --primary: #4F46E5;
+    --primary-hover: #4338CA;
+    --surface: #FFFFFF;
+    --background: #F3F4F6;
+    --text-main: #111827;
+    --text-secondary: #6B7280;
+    --border: #E5E7EB;
+    --success: #10B981;
+    --danger: #EF4444;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    color: var(--text-main);
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* === Typography & Layout === */
+.header { text-align: center; padding: 40px 20px 20px; }
+.header h1 { font-size: 2.5rem; font-weight: 700; color: var(--primary); letter-spacing: -0.02em; }
+.header p { color: var(--text-secondary); margin-top: 8px; font-size: 1.1rem; }
+
+.container { width: 100%; max-width: 800px; padding: 0 20px 40px; }
+
+/* === Cards === */
+.card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+/* === Email Generator Section === */
+.email-display-wrapper { position: relative; margin-bottom: 20px; }
+.email-input { width: 100%; padding: 20px 120px 20px 20px; font-size: 1.25rem; font-weight: 600; color: var(--text-main); background: #F9FAFB; border: 2px dashed var(--primary); border-radius: var(--radius-md); text-align: center; outline: none; transition: all 0.3s ease; }
+.email-input:focus { background: #EEF2FF; }
+.copy-btn-inside { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: var(--primary); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+.copy-btn-inside:hover { background: var(--primary-hover); }
+.action-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.btn { padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; border: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+.btn-outline { background: transparent; color: var(--text-main); border: 1px solid var(--border); }
+.btn-outline:hover { background: #F9FAFB; border-color: #D1D5DB; }
+.btn-danger { background: var(--danger); color: white; }
+.btn-danger:hover { background: #DC2626; }
+.status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: #ECFDF5; color: #047857; border-radius: 20px; font-size: 0.85rem; font-weight: 500; margin-top: 16px; }
+.status-dot { width: 8px; height: 8px; background-color: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+
+/* === Inbox Section === */
+.inbox-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.inbox-title { font-size: 1.25rem; font-weight: 600; }
+.refresh-status { font-size: 0.85rem; color: var(--text-secondary); display: flex; align-items: center; gap: 8px; }
+.message-list { display: flex; flex-direction: column; }
+.message-item { display: grid; grid-template-columns: minmax(120px, 1fr) 2fr auto; gap: 16px; padding: 16px; border-radius: var(--radius-md); cursor: pointer; transition: background 0.2s; border-bottom: 1px solid var(--border); align-items: center; }
+.message-item:last-child { border-bottom: none; }
+.message-item:hover { background: #F9FAFB; }
+.msg-sender { font-weight: 600; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg-subject { color: var(--text-secondary); font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg-time { font-size: 0.85rem; color: var(--text-secondary); white-space: nowrap; }
+.empty-state { text-align: center; padding: 48px 20px; color: var(--text-secondary); }
+.empty-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+
+/* === Modals === */
+.modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+.modal.show { display: flex; opacity: 1; }
+.modal-content { background: var(--surface); width: 100%; max-width: 800px; height: 85vh; border-radius: var(--radius-lg); display: flex; flex-direction: column; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); transform: translateY(20px); transition: transform 0.3s ease; }
+.modal-content.small { height: auto; max-width: 400px; padding: 30px 24px; text-align: center; display: block; }
+.modal.show .modal-content { transform: translateY(0); }
+.modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; background: #F9FAFB; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+.modal-meta h2 { font-size: 1.25rem; margin-bottom: 4px; color: var(--text-main); }
+.modal-meta p { font-size: 0.9rem; color: var(--text-secondary); }
+.close-btn { background: transparent; border: none; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer; padding: 4px; border-radius: 4px; }
+.close-btn:hover { background: #E5E7EB; color: var(--text-main); }
+.modal-body { flex: 1; padding: 0; background: white; border-radius: 0 0 var(--radius-lg) var(--radius-lg); overflow: hidden; }
+.modal-body iframe { width: 100%; height: 100%; border: none; }
+
+/* === Utilities & Animations === */
+.loader { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary); border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; display: inline-block; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #1F2937; color: white; padding: 12px 24px; border-radius: 30px; font-size: 0.95rem; font-weight: 500; opacity: 0; transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 2000; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+/* === Responsive === */
+@media (max-width: 640px) {
+    .header h1 { font-size: 2rem; }
+    .email-input { font-size: 1rem; padding: 16px 100px 16px 16px; }
+    .copy-btn-inside { padding: 8px 12px; font-size: 0.9rem; right: 8px; }
+    .message-item { grid-template-columns: 1fr; gap: 8px; }
+    .msg-time { display: none; }
+    .inbox-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
